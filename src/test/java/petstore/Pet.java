@@ -12,6 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
 
 // 3 - Classe
 public class Pet {
@@ -41,6 +44,34 @@ public class Pet {
         .then()
                 .log().all()
                 .statusCode(200)
+                .body("name", is("Suzi"))
+                .body("status", is("available"))
+                .body("category.name", is("dog"))
+                .body("tags.name", contains("Semana teste API"))
         ;
     }
+/*
+    // Consulta - Read - Get
+    @Test // Identifica o metodo ou funcao como um Teste para o TestNG
+    public void consultarPet() throws IOException {
+        String jsonBody = lerJson("db/pet1.json");
+
+        // Sintaxe Gherkin
+        // Dado - quando - Então
+        // Given - When -  Then
+
+        given()
+                .contentType("application/json") // comum em api rest - antigos era "text/xml"
+                .log().all()
+                .body(jsonBody)
+        .when()
+                .get(uri"198520211410")
+        .then()
+                .log().all()
+                .statusCode(200)
+                .body("name", is("Suzi"))
+                .body("status", is("available"))
+
+        ;
+    }*/
 }
