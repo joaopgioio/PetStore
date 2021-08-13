@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.contains;
 public class Pet {
     // 3.1 - Atributos
     String uri = "https://petstore.swagger.io/v2/pet"; // endereço da entidade Pet
-    String petId = "198520211410";
+    String petId = "198520211411";
 
     // 3.2 - Métodos e Funções
     public String lerJson(String caminhoJson) throws IOException {
@@ -112,6 +112,8 @@ public class Pet {
         .then()
                 .log().all()
                 .statusCode(200)
+                .body("code", is(200))
+                .body("type", is("unknown"))
                 .body("message", is(petId))
         ;
     }
@@ -131,7 +133,7 @@ public class Pet {
                 .get(uri+"/"+petId)
         .then()
                 .log().all()
-                .statusCode(200)
+                .statusCode(404)
                 .body("message", is("Pet not found"))
         ;
     }
